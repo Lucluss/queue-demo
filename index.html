@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>牛New寿喜烧(JLC东区店)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+            background-image: linear-gradient(to bottom, #fff5f2 0%, #f5f5f5 25%);
+            background-repeat: no-repeat;
+            color: #333;
+            padding-bottom: 20px;
+        }
+
+        /* 顶部导航 */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            position: relative;
+            font-size: 17px;
+            font-weight: 500;
+            color: #333;
+            padding: 0 16px;
+        }
+
+        .back-icon {
+            position: absolute;
+            left: 16px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* 通用卡片样式 */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            margin: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        /* 状态卡片 */
+        .status-card {
+            margin-top: 10px;
+            text-align: center;
+            padding-bottom: 0;
+        }
+
+        .table-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff4400;
+            margin-bottom: 6px;
+        }
+
+        .wait-info {
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .wait-count {
+            color: #ff4400;
+            font-weight: bold;
+            margin: 0 4px;
+        }
+        
+        .arrow-down {
+            width: 10px;
+            height: 10px;
+            margin-left: 4px;
+            opacity: 0.5;
+        }
+
+        /* 虚线分割 */
+        .dashed-line {
+            border-top: 1px dashed #eee;
+            margin: 0 -16px;
+            position: relative;
+        }
+        
+        .dashed-line::before, .dashed-line::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            top: -6px;
+        }
+        .dashed-line::before { left: -6px; }
+        .dashed-line::after { right: -6px; }
+
+        .shop-info-section {
+            padding: 16px 0;
+            text-align: left;
+        }
+
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .shop-name {
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .right-arrow {
+            width: 12px;
+            height: 12px;
+            margin-left: 6px;
+            fill: #999;
+        }
+
+        .notify-toggle {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .switch {
+            width: 36px;
+            height: 20px;
+            background-color: #ff4400;
+            border-radius: 20px;
+            position: relative;
+            margin-left: 8px;
+        }
+        .switch::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            top: 2px;
+            right: 2px;
+        }
+
+        .info-row {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .action-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            margin: 10px -16px 0;
+            padding: 12px 16px;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .cancel-tip {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .btn-cancel {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 18px;
+            padding: 6px 16px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        /* 商家说明卡片 */
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .note-title {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .view-all {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+        .note-content {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 推荐标题 */
+        .section-title {
+            padding: 10px 16px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        /* 商品卡片 */
+        .product-card {
+            display: flex;
+            padding: 12px;
+        }
+
+        .product-img-container {
+            width: 110px;
+            height: 110px;
+            border-radius: 8px;
+            background-color: #eee;
+            margin-right: 12px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden; /* 确保圆角有效 */
+        }
+
+        /* 这里的 img 标签样式负责把图片铺满容器 */
+        .product-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 关键属性：自动裁剪填满，不变形 */
+            display: block;
+        }
+
+        .product-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #222;
+            line-height: 1.4;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            margin-top: auto;
+        }
+
+        .current-price {
+            color: #ff4400;
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+        .current-price span { font-size: 12px; }
+
+        .discount-tag {
+            background: #fff0ec;
+            color: #ff4400;
+            font-size: 10px;
+            padding: 1px 4px;
+            border-radius: 2px;
+            margin-right: 6px;
+        }
+
+        .original-price {
+            color: #999;
+            font-size: 12px;
+            text-decoration: line-through;
+        }
+
+        .coupon-row {
+            margin-top: 4px;
+        }
+        
+        .coupon-tag {
+            background: #fff0ec;
+            color: #ff4400;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .coupon-tag strong { font-weight: bold; margin-right: 2px;}
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 6px;
+        }
+
+        .sales-count {
+            font-size: 11px;
+            color: #999;
+        }
+
+        .btn-buy {
+            background: linear-gradient(90deg, #ff8c00, #ff4400);
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        /* 悬浮机器人 */
+        .robot-float {
+            position: fixed;
+            right: 0;
+            top: 60%;
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        排队详情
+    </div>
+
+    <div class="card status-card">
+        <div class="table-number">小桌A02</div>
+        <div class="wait-info">
+            还需等待 <span class="wait-count">1</span> 桌
+            <svg class="arrow-down" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        
+        <div class="dashed-line"></div>
+
+        <div class="shop-info-section">
+            <div class="shop-header">
+                <div class="shop-name">
+                    牛New寿喜烧(JLC东区店) 
+                    <svg class="right-arrow" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+                <div class="notify-toggle">
+                    进度通知
+                    <div class="switch"></div>
+                </div>
+            </div>
+
+            <div class="info-row">取号时间：16:30 （已等待0分钟）</div>
+            <div class="info-row">手机号码：131****0325 （线上取号）</div>
+        </div>
+
+        <div class="action-area">
+            <div class="cancel-tip">如无法到店就餐，请及时取消</div>
+            <div class="btn-cancel">取消排队</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="note-header">
+            <div class="note-title">商家说明</div>
+            <div class="view-all">
+                全部 
+                <svg class="right-arrow" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+        </div>
+        <div class="note-content">
+            1、线上取号没有号码代表号码已经派送完毕，请悉知避免跑空(拒绝黄牛倒卖，谨防上当受骗，请不要从黄牛处购票)
+            <br>......
+        </div>
+    </div>
+
+    <div class="section-title">本店团购推荐</div>
+
+    <div class="card product-card">
+        <div class="product-img-container">
+            <img src="seafood.jpg" alt="双人海鲜套餐">
+        </div>
+        
+        <div class="product-info">
+            <div class="product-title">【双人海鲜】雪花上脑 | 鲍鱼生...</div>
+            
+            <div>
+                <div class="price-row">
+                    <div class="current-price"><span>¥</span>341</div>
+                    <div class="discount-tag">8.2折</div>
+                    <div class="original-price">¥418</div>
+                </div>
+                <div class="coupon-row">
+                    <div class="coupon-tag"><strong>神券</strong>已减31元</div>
+                </div>
+            </div>
+
+            <div class="stats-row">
+                <div class="sales-count">半年售 9.9万+</div>
+                <button class="btn-buy">抢购</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="robot-float">
+        <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="#4facfe" />
+            <circle cx="35" cy="45" r="5" fill="white" />
+            <circle cx="65" cy="45" r="5" fill="white" />
+            <path d="M 35 65 Q 50 75 65 65" stroke="white" stroke-width="3" fill="none" />
+        </svg>
+    </div>
+
+</body>
+</html>
